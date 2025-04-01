@@ -13,8 +13,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
   late Animation<double> _progressAnimation;
+  late AnimationController _controller;
   final TaskController taskController = Get.put(TaskController());
 
   @override
@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen>
       duration: const Duration(seconds: 3),
     );
 
-    _progressAnimation = Tween<double>(begin: 0.0, end: 0.5).animate(
+    _progressAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
         curve: Curves.easeInOut,
