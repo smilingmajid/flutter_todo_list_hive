@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
 import '../model/task_model.dart';
 
 class TaskController extends GetxController {
@@ -24,19 +23,10 @@ class TaskController extends GetxController {
     _loadTasks();
   }
 
-  Future<void> _loadTasks() async {
-    try {
-      _tasks.value = _taskBox.values.toList();
-      _updateUniqueTitles();
-      _calculateCompletionPercentages();
-      _sortTasks();
-    } catch (e) {
-      Get.snackbar(
-        'خطا',
-        'خطا در بارگذاری تسک‌ها',
-        snackPosition: SnackPosition.BOTTOM,
-      );
-    }
+  void _loadTasks() {
+   
+    _updateUniqueTitles();
+    _calculateCompletionPercentages();
   }
 
   void _updateUniqueTitles() {
@@ -66,78 +56,25 @@ class TaskController extends GetxController {
     _tasks.value = sortedList;
   }
 
-  Future<void> addTask(Task task) async {
-    try {
-      await _taskBox.add(task);
-      _tasks.add(task);
-      _updateUniqueTitles();
+  void toggleTask(String taskId) {
+    final taskIndex = _tasks.indexWhere((task) => task.id == taskId);
+    if (taskIndex != -1) {
+      final task = _tasks[taskIndex];
+      task.isDone = !task.isDone;
       _calculateCompletionPercentages();
-      _sortTasks();
-      Get.snackbar(
-        'موفق',
-        'تسک با موفقیت اضافه شد',
-        snackPosition: SnackPosition.BOTTOM,
-      );
-    } catch (e) {
-      Get.snackbar(
-        'خطا',
-        'خطا در افزودن تسک',
-        snackPosition: SnackPosition.BOTTOM,
-      );
     }
   }
 
-  Future<void> updateTask(Task task) async {
-    try {
-      final index = _tasks.indexWhere((t) => t.id == task.id);
-      if (index != -1) {
-        await _taskBox.putAt(index, task);
-        _tasks[index] = task;
-        _updateUniqueTitles();
-        _calculateCompletionPercentages();
-        _sortTasks();
-        Get.snackbar(
-          'موفق',
-          'تسک با موفقیت به‌روزرسانی شد',
-          snackPosition: SnackPosition.BOTTOM,
-        );
-      }
-    } catch (e) {
-      Get.snackbar(
-        'خطا',
-        'خطا در به‌روزرسانی تسک',
-        snackPosition: SnackPosition.BOTTOM,
-      );
-    }
+  void deleteTask(String taskId) {
+    _tasks.removeWhere((task) => task.id == taskId);
+    _updateUniqueTitles();
+    _calculateCompletionPercentages();
   }
 
-  Future<void> deleteTask(Task task) async {
-    try {
-      final index = _tasks.indexWhere((t) => t.id == task.id);
-      if (index != -1) {
-        await _taskBox.deleteAt(index);
-        _tasks.removeAt(index);
-        _updateUniqueTitles();
-        _calculateCompletionPercentages();
-        _sortTasks();
-        Get.snackbar(
-          'موفق',
-          'تسک با موفقیت حذف شد',
-          snackPosition: SnackPosition.BOTTOM,
-        );
-      }
-    } catch (e) {
-      Get.snackbar(
-        'خطا',
-        'خطا در حذف تسک',
-        snackPosition: SnackPosition.BOTTOM,
-      );
-    }
-  }
-
-  void toggleTaskStatus(Task task) {
-    task.isDone = !task.isDone;
-    updateTask(task);
+  void addTask(Task task) {
+    _tasks.add(task);
+    _updateUniqueTitles();
+    _calculateCompletionPercentages();
   }
 
   void sortTasksByTitle() {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sqflit_learn/screen/task_list_screen.dart';
 import '../controller/task_controller.dart';
 import 'add_new_task_screen.dart';
 
@@ -70,12 +71,17 @@ class _HomeScreenState extends State<HomeScreen>
                       children: [
                         Stack(
                           children: [
-                            Container(
-                              width: screenWidth * 0.95,
-                              height: screenWidth * 1.1,
-                              decoration: BoxDecoration(
-                                color: const Color.fromRGBO(255, 193, 7, 1),
-                                borderRadius: BorderRadius.circular(30),
+                            GestureDetector(
+                              onTap: (){
+                                Get.to(()=>TaskListScreen(title: title));
+                              },
+                              child: Container(
+                                width: screenWidth * 0.95,
+                                height: screenWidth * 1.1,
+                                decoration: BoxDecoration(
+                                  color: const Color.fromRGBO(255, 193, 7, 1),
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
                               ),
                             ),
                             Positioned(
@@ -105,12 +111,12 @@ class _HomeScreenState extends State<HomeScreen>
                                         return CustomPaint(
                                           painter: VerticalProgressBarPainter(
                                               progress:
-                                                  _progressAnimation.value),
+                                                  percentage ),
                                         );
                                       },
                                     ),
                                   ),
-                                  const Text("data"),
+                                   Text((percentage / 100).toString()),
                                 ],
                               ),
                             ),
@@ -144,6 +150,7 @@ class _HomeScreenState extends State<HomeScreen>
                           ],
                         ),
                         const SizedBox(height: 20),
+/*
                         Container(
                           margin: const EdgeInsets.only(bottom: 10),
                           padding: const EdgeInsets.all(15),
@@ -189,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen>
                               ),
                             ],
                           ),
-                        ),
+                        ),*/
                       ],
                     );
                   },
