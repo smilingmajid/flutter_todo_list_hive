@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sqflit_learn/screen/task_list_screen.dart';
+import '../screen/task_list_screen.dart';
 import '../controller/task_controller.dart';
 import 'add_new_task_screen.dart';
 
@@ -72,8 +72,8 @@ class _HomeScreenState extends State<HomeScreen>
                         Stack(
                           children: [
                             GestureDetector(
-                              onTap: (){
-                                Get.to(()=>TaskListScreen(title: title));
+                              onTap: () {
+                                Get.to(() => TaskListScreen(title: title));
                               },
                               child: Container(
                                 width: screenWidth * 0.95,
@@ -110,13 +110,12 @@ class _HomeScreenState extends State<HomeScreen>
                                       builder: (context, child) {
                                         return CustomPaint(
                                           painter: VerticalProgressBarPainter(
-                                              progress:
-                                                  percentage ),
+                                              progress: percentage),
                                         );
                                       },
                                     ),
                                   ),
-                                   Text((percentage / 100).toString()),
+                                  Text((percentage / 100).toString()),
                                 ],
                               ),
                             ),

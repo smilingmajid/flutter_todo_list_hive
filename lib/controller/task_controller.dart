@@ -1,10 +1,9 @@
 import 'package:get/get.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+
 import '../model/task_model.dart';
 
 class TaskController extends GetxController {
   // Private fields
-  final _taskBox = Hive.box<Task>('tasks');
   final _tasks = <Task>[].obs;
   final _isAscending = true.obs;
   final _uniqueTitles = <String>[].obs;

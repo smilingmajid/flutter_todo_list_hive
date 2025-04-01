@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sqflit_learn/controller/time_controller.dart';
+import '../controller/time_controller.dart';
 import '../controller/date_bottom_controller.dart';
 import '../controller/date_controller.dart';
 import '../controller/task_controller.dart';
